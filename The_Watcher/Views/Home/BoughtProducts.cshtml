@@ -1,0 +1,30 @@
+﻿@using The_Watcher.Models
+@model IEnumerable<ShoppingCart>
+@{
+    ViewBag.Title = "BoughtProducts";
+}
+
+<h2>Преглед на нарачки</h2>
+
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>НАРАЧКА</th>
+        <th>ИМЕ И ПРЕЗИМЕ НА КУПУВАЧОТ</th>
+        <th>АДРЕСА</th>
+        <th>ТЕЛЕФОН</th>
+        <th>ЕМАИЛ</th>
+        <th>ДЕТАЛЕН ПРИКАЗ НА НАРАЧКА</th>
+    </tr>
+    @foreach (ShoppingCart shoppingCart in Model)
+    {
+        <tr>
+            <td>@shoppingCart.Id</td>
+            <td>@shoppingCart.Name @shoppingCart.Surname</td>
+            <td>@shoppingCart.Address</td>
+            <td>@shoppingCart.Phone</td>
+            <td>@shoppingCart.Username</td>
+            <td><a class="btn btn-primary" href="/Home/BoughtProductsDetailed/@shoppingCart.Id">Прегледајте продукти</a></td>
+
+        </tr>
+    }
+</table>

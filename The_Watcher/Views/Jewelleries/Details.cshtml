@@ -1,0 +1,128 @@
+﻿@model The_Watcher.Models.Jewellery
+
+<div>
+    <table class="table-responsive">
+        <tbody>
+        <td><img src="@Model.ImageURL" alt="@Model.ProductCode" style="width:300px" /></td>
+        <td>
+            <div style="padding:20px">
+                <h4>@Model.Brand</h4>
+                <p>@Model.ProductCode</p>
+                @if (Model.Discount != 0)
+                {<p class="text-muted" style="text-decoration:line-through">@Model.Price мкд</p>
+                <h5 class="text-danger">@Model.Discount % попуст</h5>
+                <h5 class="text-danger">цена со попуст: @(((100-@Model.Discount) * @Model.Price) / 100) мкд</h5>
+            }
+            else
+            {
+                <h4>@Model.Price мкд</h4>
+            }
+            </div>
+        </td>
+        </tbody>
+    </table>
+</div>
+<div>
+    <table class="table-responsive table-striped">
+        <thead>
+            <tr>
+                <th style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">Карактеристика</th>
+                <th style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">Вредност</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Category)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Category</td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Brand)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Brand</td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Gender)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Gender</td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Material)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Material</td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Length)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Length</td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Color)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Color</td>
+            </tr>
+            <tr>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Html.DisplayNameFor(model => model.Avaliability)</td>
+                <td style="padding-left:20px; padding-right:50px; padding-top:10px; padding-bottom:10px">@Model.Avaliability</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+    {
+        <a href="@Url.Action("Edit", "Watches", new { id = @Model.Id })" class="btn btn-primary">Измени го производот</a>
+    }
+    <a class="btn btn-primary" href="/Jewelleries/AddToCart/@Model.Id">Додади во кошничка</a>
+    <a class="btn btn-primary" href="/Jewelleries/AddToWishList/@Model.Id">Додади во листа на желби</a>
+</div>
+<br />
+<hr />
+<div style="font-size: 18px; font-weight: bold">Оцена: @String.Format("{0:0.00}", Model.UserGrade) ( @Model.Graders оценувач/и )</div>
+@if (Request.IsAuthenticated)
+{
+    <div id="grades">
+        <a href=@Url.Action("Grade", "Jewelleries", new { id = @Model.Id, grade = 1 })><img title="Оцена 1" id="1" style="width: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Five_Pointed_Star_Solid.svg/2175px-Five_Pointed_Star_Solid.svg.png"></a>
+        <a href=@Url.Action("Grade", "Jewelleries", new { id = @Model.Id, grade = 2 })><img title="Оцена 2" id="2" style="width: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Five_Pointed_Star_Solid.svg/2175px-Five_Pointed_Star_Solid.svg.png"></a>
+        <a href=@Url.Action("Grade", "Jewelleries", new { id = @Model.Id, grade = 3 })><img title="Оцена 3" id="3" style="width: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Five_Pointed_Star_Solid.svg/2175px-Five_Pointed_Star_Solid.svg.png"></a>
+        <a href=@Url.Action("Grade", "Jewelleries", new { id = @Model.Id, grade = 4 })><img title="Оцена 4" id="4" style="width: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Five_Pointed_Star_Solid.svg/2175px-Five_Pointed_Star_Solid.svg.png"></a>
+        <a href=@Url.Action("Grade", "Jewelleries", new { id = @Model.Id, grade = 5 })><img title="Оцена 5" id="5" style="width: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Five_Pointed_Star_Solid.svg/2175px-Five_Pointed_Star_Solid.svg.png"></a>
+        <p class="text-danger">Oценете го производот ( 1-5 ) со клик на соодветната ѕвезда </p>
+    </div>
+    <hr />
+    using (Html.BeginForm("Comment", "Jewelleries", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.TextArea("comment", "Вашиот коментар тука...", new { style = "width:500px" })
+        <p class="text-danger">Внесете коментар за дадениот производ </p>
+        <input name="id" type="hidden" value=@Model.Id />
+        <br />
+        <button type="submit" class="btn btn-primary">Зачувај коментар</button>
+    }
+}
+
+
+@if (Model.Comments.Count != 0)
+{
+    <hr />
+    <h3>Коментари</h3>
+    foreach (var comment in Model.Comments)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+                <p>@comment.comment</p>
+            </div>
+        </div>
+    }
+
+
+}
+
+
+<style>
+    #right {
+        height: 500px;
+        display: flex;
+        justify-content: left;
+        margin-right: 200px;
+    }
+
+    dl {
+        font-size: 16px;
+    }
+</style>

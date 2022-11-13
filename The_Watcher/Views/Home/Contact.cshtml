@@ -1,0 +1,93 @@
+﻿
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+@{
+    ViewBag.Title = "Продажни салони";
+}
+<h2 style="text-align:center;font-weight:700">@ViewBag.Title</h2>
+
+<div class="container">
+    <div class="col-sm-12 col-md-6 col-lg-6" style="padding:20px">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Скопје ( Skopje City Mall )</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b> Љубљанска бр.4</p>
+                <p><b>Работно време:</b> Понеделник - Сабота: 10:00 - 22:00 часот, <br />Недела: 10:00 - 20:00 часот</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Скопје ( East Gate Mall )</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b> Беласица бр.2</p>
+                <p><b>Работно време:</b> Понеделник - Сабота: 10:00 - 22:00 часот, <br /> Недела: 10:00 - 20:00 часот</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Скопје ( Ramstore Mall )</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b> Св.Кирил и Методиј бр.13</p>
+                <p><b>Работно време:</b> Понеделник - Сабота: 10:00 - 22:00 часот, <br /> Недела: 10:00 - 20:00 часот</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Скопје ( ГТЦ )</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b> ГТЦ приземје</p>
+                <p><b>Работно време:</b> Понеделник - Петок: 10:00 - 21:00 часот, <br />Сабота: 10:00 - 18:00 часот, Недела: неработен ден</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Куманово</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b> Маршал Тито бр. 1/1</p>
+                <p><b>Работно време:</b> Понеделник - Петок: 10:00 - 21:00 часот,<br /> Сабота: 10:00 - 18:00 часот, Недела: неработен ден</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Охрид</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b>Св.Климент Охридски бр.86</p>
+                <p><b>Работно време:</b> Понеделник - Сабота: 10:00 - 21:00 часот, <br />Недела: неработен ден</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5><b>Битола</b></h5></div>
+            <div class="panel-body">
+                <p><b>Адреса:</b> Маршал Тито бр.42, Широк Сокак</p>
+                <p><b>Работно време:</b> Понеделник - Петок: 10:00 - 21:00 часот,<br /> Сабота: 10:00 - 18:00 часот, Недела: неработен ден</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6" style="padding:20px">
+        <div style="display: flex; justify-content: space-between;">
+            <div style="width: 900px; height: 500px; margin-right: 20px;" id="map"></div>
+        </div>
+        <div style="padding:20px">
+            <h3><b>Контакт</b></h3>
+            <p><b>Телефон:</b> 15155 ( Понеделник - Сабота: 09:00 - 17:00 )</p>
+            <p><b>E-mail:</b> <a href="mailto:Support@example.com">contact@thewatcher.mk</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView([41.621, 21.690], 8);
+    const attribution = 'blabla';
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution })
+    tiles.addTo(map);
+    let marker1 = L.marker([42.00472, 21.39174]).addTo(map);
+    let marker2 = L.marker([41.99845, 21.45603]).addTo(map);
+    let marker3 = L.marker([41.99472, 21.43455]).addTo(map);
+    let marker4 = L.marker([41.99177, 21.42742]).addTo(map);
+    let marker5 = L.marker([42.13589, 21.71957]).addTo(map);
+    let marker6 = L.marker([41.11371, 20.7998]).addTo(map);
+    let marker7 = L.marker([41.02927, 21.33527]).addTo(map);
+</script>
+
+

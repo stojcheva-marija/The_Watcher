@@ -1,0 +1,150 @@
+﻿@model PagedList.IPagedList<The_Watcher.Models.Watch>
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+
+    if (ViewData["Filtering"] == null)
+    {
+        ViewData["Filtering"] = "Најпопуларни";
+    }
+}
+@if (User.IsInRole("Administrator"))
+{
+    <br />
+    <br />
+    <br />
+}
+<br />
+<form asp-controller="Watches" asp-action="Index" method="get" style="text-align:right">
+    <p>
+        Пребарај:
+        @Html.TextBox("SearchString", ViewData["SearchParameter"] as string)
+        Филтрирај според:
+        <select name="sortOrder">
+            @if (@ViewData["Filtering"].ToString() == "Најпопуларни")
+            {
+                <option name="sortOrder" value="Најпопуларни" selected="selected">Најпопуларни</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Најпопуларни">Најпопуларни</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Цена ( растечки редослед )")
+            {
+                <option name="sortOrder" value="Цена ( растечки редослед )" selected="selected">Цена ( растечки редослед )</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Цена ( растечки редослед )">Цена ( растечки редослед )</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Цена ( опаѓачки редослед )")
+            {
+                <option name="sortOrder" value="Цена ( опаѓачки редослед )" selected="selected">Цена ( опаѓачки редослед )</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Цена ( опаѓачки редослед )">Цена ( опаѓачки редослед )</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Попуст ( растечки редослед )")
+            {
+                <option name="sortOrder" value="Попуст ( растечки редослед )" selected="selected">Попуст ( растечки редослед )</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Попуст ( растечки редослед )">Попуст ( растечки редослед )</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Попуст ( опаѓачки редослед )")
+            {
+                <option name="sortOrder" value="Попуст ( опаѓачки редослед )" selected="selected">Попуст ( опаѓачки редослед )</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Попуст ( опаѓачки редослед )">Попуст ( опаѓачки редослед )</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Име")
+            {
+                <option name="sortOrder" value="Име" selected="selected">Име</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Име">Име</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Бренд ( A - Z )")
+            {
+                <option name="sortOrder" value="Бренд ( A - Z )" selected="selected">Бренд ( A - Z )</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Бренд ( A - Z )">Бренд ( A - Z )</option>
+            }
+            @if (@ViewData["Filtering"].ToString() == "Бренд ( Z - A )")
+            {
+                <option name="sortOrder" value="Бренд ( Z - A )" selected="selected">Бренд ( Z - A )</option>
+            }
+            else
+            {
+                <option name="sortOrder" value="Бренд ( Z - A )">Бренд ( Z - A )</option>
+            }
+        </select>
+        @if (ViewData["gender"] != null)
+        {
+            <input type="hidden" name="strapMaterial" id="strapMaterial" value="@ViewData["strap"].ToString()" />
+            <input type="hidden" name="gender" id="gender" value="@ViewData["gender"].ToString()" />
+        }
+        <input type="submit" value="Пребарај" class="btn btn-primary" />
+    </p>
+</form>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-12 col-md-6 col-lg-4" style="padding:20px;height:600px">
+            <div class="card">
+                <img src="@item.ImageURL" alt="@item.ProductCode" class="card-img-top" width="100%" />
+                <div class="card-body">
+                    <h3 class="card-title">@item.Brand</h3>
+                    <p class="card-text">@item.ProductCode</p>
+                    @if (item.Discount != 0)
+                    {<p class="text-muted" style="text-decoration:line-through">@item.Price мкд</p>
+                    <h5 class="text-danger">@item.Discount % попуст</h5>
+                    <h4 class="text-danger">@(((100-@item.Discount) * @item.Price) / 100) мкд</h4>
+                }
+                else
+                {
+                    <h4>@item.Price мкд</h4>
+                }
+                    @Html.ActionLink("Детали", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @if (User.IsInRole("Moderator") || User.IsInRole("Administrator"))
+                    {
+                        @Html.ActionLink("Измени", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                        <span> </span>
+                        @Html.ActionLink("Избриши", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+@if (User.IsInRole("Moderator") || User.IsInRole("Administrator"))
+{
+    @Html.ActionLink("Додади производ", "Create", null, new { @class = "btn btn-primary" })
+}
+
+<div id="container" style="margin-left: 20px;display:inline-block">
+    <p></p>
+    <p></p>
+    <div class="pagination" style="margin-left: 400px">
+        <div>
+            Страна @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) од @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewData["Filtering"], SearchString = ViewData["SearchParameter"], gender=ViewData["gender"], strapMaterial=ViewData["strap"] }))
+        </div>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The_Watcher", "The_Watcher\The_Watcher.csproj", "{C7405AE7-481D-4143-AF53-F4A2A226D364}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7405AE7-481D-4143-AF53-F4A2A226D364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7405AE7-481D-4143-AF53-F4A2A226D364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7405AE7-481D-4143-AF53-F4A2A226D364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7405AE7-481D-4143-AF53-F4A2A226D364}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB049B56-E205-4B57-8E08-91296B9389D7}
+	EndGlobalSection
+EndGlobal

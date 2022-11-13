@@ -1,0 +1,93 @@
+﻿@model The_Watcher.Models.WatchJewellery
+@using The_Watcher.Models
+
+<h2 style="text-align:center">Вашата листа на желби</h2>
+<br />
+@{var sum = 0.0; }
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                ПРОИЗВОД
+            </th>
+            <th>
+                ЦЕНА
+            </th>
+            <th>
+                ПОПУСТ
+            </th>
+            <th>
+                ЦЕНА СО ПОПУСТ
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (Jewellery item in Model.Jewelleries.ToList())
+        {
+            sum += item.Price;
+        <tr>
+            <td>
+                <img src="@item.ImageURL" width="75px" height="75px" alt="@item.ProductCode" />
+            </td>
+            <td>
+                @item.ProductCode
+            </td>
+            <td>
+                @item.Price МКД
+            </td>
+            <td>
+                @item.Discount %
+            </td>
+            <td>
+                @(((100-item.Discount)*item.Price)/100) МКД
+            </td>
+            <td>
+                <a class="btn btn-primary" href="/Jewelleries/Details/@item.Id">Прегледај продукт</a>
+            </td>
+            <td>
+                @Html.ActionLink("Избриши", "DeleteWishList", new { id = item.Id, type="Jewellery" }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+        }
+
+        @foreach (Watch item in Model.Watches.ToList())
+        {
+            sum += item.Price;
+    <tr>
+        <td>
+            <img src="@item.ImageURL" width="75px" height="75px" alt="@item.ProductCode" />
+        </td>
+        <td>
+            @item.ProductCode
+        </td>
+        <td>
+            @item.Price МКД
+        </td>
+        <td>
+            @item.Discount %
+        </td>
+        <td>
+            @(((100 - item.Discount) * item.Price) / 100) МКД
+        </td>
+        <td>
+            <a class="btn btn-primary" href="/Watches/Details/@item.Id">Прегледај продукт</a>
+        </td>
+        <td>
+            @Html.ActionLink("Избриши", "DeleteWishList", new { id = item.Id, type="Watch" }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+        }
+
+    </tbody>
+</table>

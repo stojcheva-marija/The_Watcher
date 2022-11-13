@@ -1,0 +1,59 @@
+﻿@model The_Watcher.Models.ShoppingCart
+@using The_Watcher.Models
+
+@{
+    ViewBag.Title = "BoughtProductsDetailed";
+}
+@if (User.IsInRole("Administrator"))
+{<br />
+<br />
+<br />
+}
+<h2>Детали за нарачка @Model.Id </h2>
+<h3>Корисник: @Model.Name @Model.Surname</h3>
+
+@{var sum = 0.0; }
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>ШИФРА НА ПРОДУКТ</th>
+            <th>ЦЕНА НА ПРОДУКТ</th>
+        </tr>
+    </thead>
+    @foreach (Jewellery item in @Model.ListJewelleries.ToList())
+    {
+        sum += item.Price;
+        <tr>
+            <td>
+                <img src="@item.ImageURL" width="75px" height="75px" alt="@item.ProductCode" />
+            </td>
+            <td>
+                @item.ProductCode
+            </td>
+            <td>
+                @(((100-item.Discount)*item.Price)/100) МКД
+            </td>
+        </tr>
+    }
+
+    @foreach (Watch item in @Model.ListWatches.ToList())
+    {
+        sum += item.Price;
+        <tr>
+            <td>
+                <img src="@item.ImageURL" width="75px" height="75px" alt="@item.ProductCode" />
+            </td>
+            <td>
+                @item.ProductCode
+            </td>
+            <td>
+                @(((100 - item.Discount) * item.Price) / 100) МКД
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h4><b>Вкупна нарачка: @sum денари </b></h4>
